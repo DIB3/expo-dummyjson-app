@@ -102,7 +102,7 @@ export default function ProfileScreen() {
         fetchUserData();
     }, [userId]);
 
-    // Save changes and update user data on the server
+   
     const saveChanges = async () => {
         if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim()) {
             return Alert.alert('Validation Error', 'All fields are required.');
@@ -111,7 +111,7 @@ export default function ProfileScreen() {
         try {
  
             const requestBody = {
-                firstName, // Default to empty string if undefined
+                firstName, 
                 lastName,
                 email,
                 phone,
@@ -121,7 +121,7 @@ export default function ProfileScreen() {
             console.log('Request Body:', requestBody);
 
             const response = await fetch(`https://dummyjson.com/users/${userId}`, {
-                method: 'PUT', // Use PUT or PATCH
+                method: 'PUT', 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestBody),
             });
@@ -147,14 +147,14 @@ export default function ProfileScreen() {
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <Container>
-                {/* Loading Indicator */}
+             
                 {loading && (
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 20 }}>
                         <Text>Loading...</Text>
                     </View>
                 )}
 
-                {/* Profile Header */}
+               
                 {!loading && (
                     <ProfileHeader>
                         <View>
@@ -175,7 +175,7 @@ export default function ProfileScreen() {
                     </ProfileHeader>
                 )}
 
-                {/* Input Fields Section */}
+               
                 <InputSection>
                     <Label>First Name</Label>
                     <Input
@@ -216,7 +216,7 @@ export default function ProfileScreen() {
                     />
                 </InputSection>
 
-                {/* Save Button */}
+               
                 <Button onPress={saveChanges}>
                     <ButtonText>Save Changes</ButtonText>
                 </Button>

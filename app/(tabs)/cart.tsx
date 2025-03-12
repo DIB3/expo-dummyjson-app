@@ -69,7 +69,7 @@ export default function CartScreen() {
     const [loading, setLoading] = useState(true);
     const isFocused = useIsFocused(); 
 
-    // Load cart data from AsyncStorage when the screen mounts
+
     useEffect(() => {
         const loadCartData = async () => {
             try {
@@ -85,7 +85,7 @@ export default function CartScreen() {
         loadCartData();
     }, []);
 
-    // Fetch product details for each item in the cart
+    
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
@@ -119,7 +119,7 @@ export default function CartScreen() {
         }
     }, [cart]);
 
-    // Increase quantity of a product
+ 
     const increaseQuantity = (id) => {
         setCart(
             cart.map((item) =>
@@ -128,7 +128,6 @@ export default function CartScreen() {
         );
     };
 
-    // Decrease quantity of a product
     const decreaseQuantity = (id) => {
         setCart(
             cart.map((item) =>
@@ -139,21 +138,21 @@ export default function CartScreen() {
         );
     };
 
-    // Remove a product from the cart
+
     const removeItem = (id) => {
         setCart(cart.filter((item) => item.id !== id));
     };
 
-    // Calculate total price of all items in the cart
+  
     const calculateTotal = () => {
         return products.reduce((total, product) => total + product.price * product.quantity, 0);
     };
 
-    // Handle checkout process
+   
     const handleCheckout = async () => {
         console.log('Checkout button clicked');
         try {
-            // Bypass confirmation for testing
+          
             setCart([]);
             setProducts([]);
             await AsyncStorage.removeItem('cart');

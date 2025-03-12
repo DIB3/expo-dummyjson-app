@@ -99,7 +99,7 @@ export default function HomeScreen() {
           .catch(error => console.error(error));
   }, [page]);
 
-  // Function to save cart data to AsyncStorage
+  
   const saveCartToStorage = async (cartItems) => {
       try {
           await AsyncStorage.setItem('cart', JSON.stringify(cartItems));
@@ -108,7 +108,7 @@ export default function HomeScreen() {
       }
   };
 
-  // Function to load cart data from AsyncStorage
+
   const loadCartFromStorage = async () => {
       try {
           const cartData = await AsyncStorage.getItem('cart');
@@ -122,36 +122,35 @@ export default function HomeScreen() {
       }
   };
 
-  // Open modal to select quantity
   const openAddToCartModal = (product) => {
       setSelectedProduct(product);
-      setQuantity(1); // Default quantity to 1
+      setQuantity(1); 
       setModalVisible(true);
   };
 
-  // Add to Cart function
+
   const confirmAddToCart = async () => {
       if (!selectedProduct) return;
 
-      // Load existing cart items from storage
+
       const cartItems = await loadCartFromStorage();
 
-      // Check if the product already exists in the cart
+
       const existingItemIndex = cartItems.findIndex(item => item.id === selectedProduct.id);
 
       if (existingItemIndex !== -1) {
-          // Update the quantity of the existing item
+
           cartItems[existingItemIndex].quantity += quantity;
       } else {
-          // Add a new item to the cart
+     
           cartItems.push({ id: selectedProduct.id, title: selectedProduct.title, price: selectedProduct.price, quantity });
       }
 
-      // Save updated cart items back to storage
+   
       await saveCartToStorage(cartItems);
 
       Alert.alert("Added to Cart", `${selectedProduct.title} (x${quantity}) added!`);
-      setModalVisible(false); // Close modal
+      setModalVisible(false); 
   };
 
   return (
@@ -175,7 +174,7 @@ export default function HomeScreen() {
               )}
           />
 
-          {/* ADD TO CART MODAL */}
+       
           <Modal visible={modalVisible} transparent={true} animationType="fade">
               <ModalContainer>
                   <ModalContent>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { theme } from '../../constants/theme';
-import { useRouter } from 'expo-router'; // Import useRouter for navigation
+import { useRouter } from 'expo-router'; 
 
 const Container = styled.View`
     flex: 1;
@@ -51,9 +51,9 @@ export default function SearchScreen() {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const router = useRouter(); // Use useRouter for navigation
+    const router = useRouter(); 
 
-    // Fetch all products on component mount
+    
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -70,10 +70,10 @@ export default function SearchScreen() {
         fetchProducts();
     }, []);
 
-    // Filter products based on search query
+   
     useEffect(() => {
         if (!searchQuery.trim()) {
-            setFilteredProducts([]); // Clear results if search query is empty
+            setFilteredProducts([]); 
             return;
         }
 
@@ -86,19 +86,19 @@ export default function SearchScreen() {
         setFilteredProducts(filtered);
     }, [searchQuery, products]);
 
-    // Handle search input changes
+ 
     const handleSearchChange = (text) => {
         setSearchQuery(text);
     };
 
-    // Navigate to product details page
+    
     const navigateToProductDetails = (productId) => {
-        router.push(`/product/${productId}`); // Navigate to /product/{id}
+        router.push(`/product/${productId}`); 
     };
 
-    // Render each product item
+ 
     const renderProductItem = ({ item }) => (
-        <ProductItem onPress={() => navigateToProductDetails(item.id)}> {/* Add onPress handler */}
+        <ProductItem onPress={() => navigateToProductDetails(item.id)}>
             <ProductImage source={{ uri: item.thumbnail }} />
             <ProductInfo>
                 <Text style={{ fontWeight: 'bold', fontSize: theme.fontSizes.medium }}>
@@ -113,7 +113,7 @@ export default function SearchScreen() {
     return (
         <Container>
             <br></br>
-            {/* Search Bar */}
+    
             <SearchBar
                 placeholder="Search by name or category..."
                 value={searchQuery}
@@ -122,14 +122,13 @@ export default function SearchScreen() {
             />
     <br></br>
 
-            {/* Loading Indicator */}
+        
             {loading && (
                 <View style={styles.loadingContainer}>
                     <ActivityIndicator size="large" color={theme.colors.primary} />
                 </View>
             )}
 
-            {/* Display Results */}
             {!loading && (
                 <>
                     {filteredProducts.length > 0 ? (
@@ -139,16 +138,16 @@ export default function SearchScreen() {
                             renderItem={renderProductItem}
                             contentContainerStyle={styles.listContainer}
                         />
-                    ) : searchQuery.trim() ? ( // Show "No results" message if query exists but no matches
+                    ) : searchQuery.trim() ? ( 
                         <NoResults>No results found for "{searchQuery}".</NoResults>
-                    ) : null} {/* Do not show anything if no query */}
+                    ) : null} 
                 </>
             )}
         </Container>
     );
 }
 
-// Styles for additional layout adjustments
+
 const styles = StyleSheet.create({
     searchBar: {
         height: 45,

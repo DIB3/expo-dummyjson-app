@@ -81,9 +81,9 @@ const ButtonText = styled.Text`
 export default function ProductDetailsScreen() {
     const { id } = useLocalSearchParams();
     const [product, setProduct] = useState(null);
-    const [quantity, setQuantity] = useState(1); // Default quantity is 1
+    const [quantity, setQuantity] = useState(1); 
 
-    // Fetch product details
+   
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -98,27 +98,27 @@ export default function ProductDetailsScreen() {
         fetchProduct();
     }, [id]);
 
-    // Function to add product to cart
+
     const addToCart = async () => {
         if (!product) return;
 
         try {
-            // Load existing cart data
+            
             const cartData = await AsyncStorage.getItem('cart');
             let cartItems = cartData ? JSON.parse(cartData) : [];
 
-            // Check if the product already exists in the cart
+           
             const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
 
             if (existingItemIndex !== -1) {
-                // Update the quantity of the existing item
+               
                 cartItems[existingItemIndex].quantity += quantity;
             } else {
-                // Add a new item to the cart
+                
                 cartItems.push({ ...product, quantity });
             }
 
-            // Save updated cart data
+           
             await AsyncStorage.setItem('cart', JSON.stringify(cartItems));
             Alert.alert('Success', `${product.title} (x${quantity}) added to cart!`);
         } catch (error) {
@@ -141,26 +141,25 @@ export default function ProductDetailsScreen() {
 
     return (
         <Container>
-            {/* Product Image */}
+           
             <ProductImage source={{ uri: product.thumbnail }} />
 
-            {/* Product Title */}
+          
             <Title>{product.title}</Title>
 
             <Text style={{ color: theme.colors.textSecondary }}>Category: {product.category}</Text>
 
-            {/* Product Price */}
             <Price>${product.price}</Price>
 
-            {/* Product Description */}
+       
             <Description>{product.description}</Description>
 
-            {/* Stock Availability */}
+           
             <StockInfo>
                 In Stock: {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
             </StockInfo>
 
-            {/* Quantity Selector */}
+          
             <QuantityContainer>
                 <QuantityButton onPress={decreaseQuantity}>
                     <QuantityText>-</QuantityText>
